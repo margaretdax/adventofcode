@@ -15,6 +15,8 @@ fn main() {
         elf_rations[i] += meal;
     }
 
-    let max = elf_rations.iter().max().unwrap();
-    println!("{}", max);
+    elf_rations.sort();
+    let sum: i32 = elf_rations.iter().rev().take(3).sum();
+
+    println!("{}", sum);
 }
