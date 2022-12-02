@@ -1,6 +1,6 @@
 use std::io::{self, BufRead};
 
-#[derive(PartialEq, Eq)]
+#[derive(PartialEq, Eq, Clone)]
 enum RPC { Rock, Paper, Scissors }
 
 fn main() {
@@ -9,10 +9,32 @@ fn main() {
     let mut score = 0;
     for line in stdin.lock().lines().map(|l| l.unwrap()) {
         let (a, b) = parse_line(&line);
+        let (a, b) = trans(a, b);
         score += score_line(a, b);
     }
 
     println!("{}", score);
+}
+
+fn trans(a: RPC, b: RPC) -> (RPC, RPC) {
+    let c = a.clone();
+    let d = match b {
+        RPC::Rock => // Lose
+            match a {
+                RPC::Rock => RPC::Scissors,
+                RPC::Paper => RPC::Rock,
+                RPC::Scissors => RPC::Paper
+            },
+        RPC::Paper => a, // Draw
+        RPC::Scissors => // Win
+            match a {
+                RPC::Rock => RPC::Paper,
+                RPC::Paper => RPC::Scissors,
+                RPC::Scissors => RPC::Rock
+            }
+    };
+
+    (c, d)
 }
 
 fn score_line(a: RPC, b: RPC) -> i32 {
