@@ -1,5 +1,3 @@
-use std::io::{Lines};
-
 pub trait Solution {
-    fn solve(lines: Lines<String>) -> String;
+    fn solve(self: Box<Self>, lines: Vec<String>) -> String;
 }
