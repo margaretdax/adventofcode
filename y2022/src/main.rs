@@ -8,12 +8,33 @@ fn main() {
 
     let mut score = 0;
     for line in stdin.lock().lines().map(|l| l.unwrap()) {
-        let (a, b) = parse_line(&line);
-        let (a, b) = trans(a, b);
-        score += score_line(a, b);
+        let (left, right) = split_sack(line);
+        let overlap = left.iter().filter(|x| right.contains(x)).next().unwrap();
+        let overlap_score = priority(overlap);
+        score += overlap_score;
     }
 
     println!("{}", score);
+}
+
+fn split_sack(line: String) -> (Vec<u8>, Vec<u8>) {
+    let index = line.len() / 2;
+    let (left, right) = line.split_at(index);
+    if left.len() != right.len() {
+        panic!("halfing is borked");
+    }
+
+    (left.as_bytes().to_vec(), right.as_bytes().to_vec())
+}
+
+fn priority(item: &u8) -> i32 {
+    if *item >= b'a' &&  *item <= b'z' {
+        (item - b'a' + 1).into()
+    } else if *item >= b'A' && *item <= b'Z' {
+        (item - b'A' + 27).into()
+    } else {
+        panic!("invalid item")
+    }
 }
 
 fn trans(a: RPC, b: RPC) -> (RPC, RPC) {
