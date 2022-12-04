@@ -8,9 +8,14 @@ fn main() {
     
     let stdin = io::stdin();
     let lines = stdin.lock().lines().map(|l| l.unwrap()).collect();
-    let solution = solver.solve(lines);
-    match solution {
-        Some(solution_str) => println!("{}", solution_str),
-        None => println!("No solution for Solver {}-{}", solver.get_year(), solver.get_number())
+    match solver {
+        Some(s) => {
+            let solution = s.solve(lines);
+            match solution {
+                Some(solution_str) => println!("{}", solution_str),
+                None => println!("No solution for Solver {}-{}", s.get_year(), s.get_number())
+            }
+        }
+        None => println!()
     }
 }
