@@ -1,6 +1,8 @@
-pub struct DayThree;
+use utils::*;
 
-impl utils::Solution for DayThree {
+pub struct Solver;
+
+impl Solution for Solver {
     fn solve(self: Box<Self>, lines: Vec<String>) -> String {
         let mut solution = "".to_owned();
         let mut score = 0;

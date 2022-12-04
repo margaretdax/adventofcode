@@ -1,9 +1,11 @@
-pub struct DayTwo;
+use utils::*;
+
+pub struct Solver;
 
 #[derive(PartialEq, Eq, Clone)]
 enum RPS { Rock, Paper, Scissors }
 
-impl utils::Solution for DayTwo {
+impl Solution for Solver {
     fn solve(self: Box<Self>, lines: Vec<String>) -> String {
         let mut solution = "".to_owned();
         let mut score = 0;

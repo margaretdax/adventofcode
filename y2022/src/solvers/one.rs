@@ -1,8 +1,8 @@
-use utils::Solution;
+use utils::*;
 
-pub struct DayOne;
+pub struct Solver;
 
-impl Solution for DayOne {
+impl Solution for Solver {
     fn solve(self: Box<Self>, _lines: Vec<String>) -> String {
         let mut solution = "".to_owned();
         let mut answer;
