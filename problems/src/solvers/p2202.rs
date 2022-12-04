@@ -6,7 +6,9 @@ pub struct Solver;
 enum RPS { Rock, Paper, Scissors }
 
 impl Solution for Solver {
-    fn solve(self: Box<Self>, lines: Vec<String>) -> String {
+    fn get_number(self: &Self) -> i32 { 2 }
+
+    fn solve(self: &Self, lines: Vec<String>) -> Option<String> {
         let mut solution = "".to_owned();
         let mut score = 0;
         for line in lines.iter() {
@@ -23,7 +25,7 @@ impl Solution for Solver {
         }
         solution.push_str(format!("Part II: {}\n", score).as_str());
 
-        solution
+        Some(solution)
     }
 }
 

@@ -3,7 +3,9 @@ use utils::*;
 pub struct Solver;
 
 impl Solution for Solver {
-    fn solve(self: Box<Self>, lines: Vec<String>) -> String {
+    fn get_number(self: &Self) -> i32 { 3 }
+
+    fn solve(self: &Self, lines: Vec<String>) -> Option<String> {
         let mut solution = "".to_owned();
         let mut score = 0;
         
@@ -27,7 +29,7 @@ impl Solution for Solver {
 
         solution.push_str(format!("Part II: {}\n", score).as_str());
 
-        solution
+        Some(solution)
     }
 }
 

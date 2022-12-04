@@ -3,6 +3,8 @@ use utils::*;
 pub struct Solver;
 
 impl Solution for Solver {
+    fn get_number(self: Box<Self>) -> i32 { i_am_not_a_number_i_am_a_free_man }
+
 	fn solve(self: Box<Self>, lines: Vec<String>) -> String {
 		let mut solution = "".to_owned();
 		for line in lines.iter() {
