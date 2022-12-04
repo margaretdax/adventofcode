@@ -8,3 +8,4 @@ default-run = "problems"
 
 [dependencies]
 utils = { path = "../utils" }
+atty = { version = "0.2" }

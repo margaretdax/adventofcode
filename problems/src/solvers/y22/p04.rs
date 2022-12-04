@@ -9,7 +9,6 @@ impl Solution for Solver {
 		let mut solution = "".to_owned();
 		let mut pairs = 0;
 		for line in lines.iter() {
-			
 			// al-ar,bl-br
 			// al >= bl && br <= ar
 			// bl >= al && ar <= br
