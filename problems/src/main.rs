@@ -1,4 +1,3 @@
-use std::io::{self, BufRead};
 use utils::Solution;
 mod solvers;
 
@@ -11,7 +10,7 @@ fn main() {
             let solution = s.solve(lines);
             match solution {
                 Some(solution_str) => println!("{}", solution_str),
-                None => println!("No solution for Solver y{}/p{:0>2}.rs", s.get_year() % 1000, s.get_number())
+                None => println!("No solution for y{}/p{:0>2}.rs", s.get_year() % 1000, s.get_number())
             }
         }
         None => println!("boop")
