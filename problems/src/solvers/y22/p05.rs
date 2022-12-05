@@ -1,5 +1,3 @@
-use std::fs::read;
-
 use utils::*;
 
 pub struct Solver;
@@ -9,7 +7,7 @@ impl Solution for Solver {
 
 	fn solve(self: &Self, lines: Vec<String>) -> Option<String> {
 		let mut solution = "".to_owned();
-		let mut stack_tops = "".to_owned();
+		let mut stack_tops: String;
 		{
 			let (mut stacks, begin) = parse_stacks(&lines);
 			let mut it = lines.iter();
@@ -80,7 +78,7 @@ fn read_stacks(stacks: &Vec<Vec<u8>>) -> Vec<u8> {
 fn parse_stacks(lines: &Vec<String>) -> (Vec<Vec<u8>>, usize) {
 	let num = (lines.first().unwrap().len() / 4) + 1;
 	let mut result: Vec<Vec<u8>> = vec![];
-	for i in 0..num {
+	for _ in 0..num {
 		result.push(vec![]);
 	}
 	let mut n = 0;
