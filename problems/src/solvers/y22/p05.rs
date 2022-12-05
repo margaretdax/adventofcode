@@ -25,8 +25,17 @@ impl Solution for Solver {
 		solution.push_str(format!("Part I: {}\n", stack_tops).as_str());
 
 		stack_tops.clear();
-		for line in lines.iter() {
+		{
+			let (mut stacks, begin) = parse_stacks(&lines);
+			let mut it = lines.iter();
+			for _ in 0..begin { it.next(); }
 
+			for line in it {
+				let (a, b, c) = parse_move(line);
+				//println!("{} {} {} {}", line, a, b, c);
+				make_move_rev(&mut stacks, a, b-1, c-1);
+			}
+			stack_tops = String::from_utf8(read_stacks(&stacks)).unwrap();
 		}
 		solution.push_str(format!("Part II: {}\n", stack_tops).as_str());
 		
@@ -46,8 +55,20 @@ fn parse_move(line: &String) -> (usize, usize, usize) {
 }
 
 fn make_move(stacks: &mut Vec<Vec<u8>>, n: usize, from: usize, to: usize) {
-	for i in 0..n {
+	for _ in 0..n {
 		let top = stacks[from].pop().unwrap();
+		stacks[to].push(top);
+	}
+}
+
+fn make_move_rev(stacks: &mut Vec<Vec<u8>>, n: usize, from: usize, to: usize) {
+	let mut tmp: Vec<u8> = vec![];
+	for _ in 0..n {
+		let top = stacks[from].pop().unwrap();
+		tmp.push(top);
+	}
+	for _ in 0..n {
+		let top = tmp.pop().unwrap();
 		stacks[to].push(top);
 	}
 }
