@@ -9,26 +9,28 @@ impl Solution for Solver {
 		let mut solution = "".to_owned();
 		let mut answer = "".to_owned();
 		for line in lines.iter() {
-			let marker = find_marker(line);
+			let marker = find_marker(line, 4);
 			answer.push_str(format!("{}, ", marker).as_str());
 		}
 		solution.push_str(format!("Part I: {}\n", answer).as_str());
 
-		for _line in lines.iter() {
-			
+		answer.clear();
+		for line in lines.iter() {
+			let marker = find_marker(line, 14);
+			answer.push_str(format!("{}, ", marker).as_str());
 		}
-		solution.push_str(format!("Part II: {}\n", 0).as_str());
+		solution.push_str(format!("Part II: {}\n", answer).as_str());
 		
 		Some(solution)
 	}
 }
 
-fn find_marker(s: &String) -> usize {
-	let end = s.len() - 14;
+fn find_marker(s: &String, n: usize) -> usize {
+	let end = s.len() - n;
 	for i in 0..=end {
-		let sub = &s[i..i+14];
+		let sub = &s[i..i+n];
 		if has_dup(sub) {
-			return i+14
+			return i+n
 		}		
 	}
 	
