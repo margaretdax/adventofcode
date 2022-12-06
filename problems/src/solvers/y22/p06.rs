@@ -24,11 +24,11 @@ impl Solution for Solver {
 }
 
 fn find_marker(s: &String) -> usize {
-	let end = s.len() - 4;
+	let end = s.len() - 14;
 	for i in 0..=end {
-		let sub = &s[i..=i+3];
+		let sub = &s[i..i+14];
 		if has_dup(sub) {
-			return i+4
+			return i+14
 		}		
 	}
 	
