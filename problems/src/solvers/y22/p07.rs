@@ -9,36 +9,20 @@ impl Solution for Solver {
 	fn solve(self: &Self, lines: Vec<String>) -> Option<String> {
 		let mut solution = "".to_owned();
 		let mut answer = "".to_owned();
-		{
-			let files = collect_files(&lines);
-			let mut dirs = std::collections::HashMap::new();
-			for file in files {
-				let mut parts: Vec<&str> = file.path.split("/").collect();
-				parts.pop(); // don't need the file name
-				loop {
-					let key = parts.join("/");
-					let entry = dirs.entry(key);
-					entry.and_modify(|e| *e += file.size).or_insert(file.size);
-
-					if parts.is_empty() {
-						break;
-					} else { 
-						parts.pop();
-					}
-				}
-				println!("{}\t{}", file.size, file.path);
-			}
-			for (k, v) in dirs.iter() {
-				println!("{}: {} [{}]", k, v, *v <= 100000);
-			}
-			answer = format!("{}", dirs.iter().map(|(k,v)| v).filter(|&v| *v <= 100000).sum::<u64>())
-		}
+		let files = collect_files(&lines);
+		let dirs = collect_dirs(&files);
+		answer = format!("{}", dirs.iter().map(|(_,v)| v).filter(|&v| *v <= 100000).sum::<u64>());
 		solution.push_str(format!("Part I: {}\n", answer).as_str());
 
-		answer.clear();
-		for _line in lines.iter() {
-
+		let root = dirs.iter().filter(|(k, v)| k.is_empty() ).map(|(k, v)| v).next().unwrap();
+		let max = 70000000;
+		let needed = 30000000;
+		for (k, v) in dirs.iter() {
+			//println!("\"{}\" => {}", k, v);
 		}
+		//println!("{} to delete {}", to_delete, root);
+		let m = dirs.iter().map(|(_, v)| v).filter(|&v| root - *v <= max - needed).min().unwrap();
+		answer = format!("{}", m);
 		solution.push_str(format!("Part II: {}\n", answer).as_str());
 		
 		Some(solution)
@@ -48,6 +32,27 @@ impl Solution for Solver {
 struct File {
 	path: String,
 	size: u64,
+}
+
+fn collect_dirs(files: &Vec<File>) -> HashMap<String, u64> {
+	let mut dirs = std::collections::HashMap::new();
+	for file in files {
+		let mut parts: Vec<&str> = file.path.split("/").filter(|s| !s.is_empty()).collect();
+		parts.pop(); // don't need the file name
+		loop {
+			let key = parts.join("/");
+			//println!("\"{}\"adding {} to \"{}\"", file.path, file.size, key);
+			let entry = dirs.entry(key);
+			entry.and_modify(|e| *e += file.size).or_insert(file.size);
+
+			if parts.is_empty() {
+				break;
+			} else { 
+				parts.pop();
+			}
+		}
+	}
+	dirs
 }
 
 fn collect_files(lines: &Vec<String>) -> Vec<File> {
