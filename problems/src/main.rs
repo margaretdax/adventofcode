@@ -29,7 +29,7 @@ fn main() {
                 println!("Running for input \"{}\"", path);
                 match solution {
                     Some(solution_str) => println!("{}", solution_str),
-                    None => println!("No solution for y{}/p{:0>2}.rs", s.get_year() % 1000, s.get_number())
+                    None => println!("No solution for y{}/p{:0>2}.rs", s.get_year() % 100, s.get_number())
                 }
             }
         }
@@ -57,7 +57,7 @@ fn get_solver_number_from_args() -> Option<(i32, i32)> {
 }
 
 fn get_solver_input_path(solver: &dyn Solution, is_test: bool) -> String {
-    let mut input = format!("problems/input/{}{:0>2}.in", solver.get_year() % 1000, solver.get_number());
+    let mut input = format!("problems/input/{}{:0>2}.in", solver.get_year() % 100, solver.get_number());
 
     if is_test {
         input.push_str(".test");
