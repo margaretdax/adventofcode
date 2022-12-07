@@ -1,23 +1,20 @@
+use utils::Solution;
+
 mod y22;
 
-pub fn name_to_solver(name: Option<String>) -> Option<Box<dyn utils::Solution>> {
-    let mut list: Vec<Box<dyn utils::Solution>> = vec![
+pub fn all_solvers() -> Vec<Box<dyn Solution>> {
+    vec![
         y22::get_solvers()
-    ].into_iter().flatten().collect();
+    ].into_iter().flatten().collect()
+}
+
+pub fn find_solver_matching(num: i32, year: i32) -> Option<Box<dyn Solution>> {
+    let mut list: Vec<Box<dyn utils::Solution>> = all_solvers();
     
-    match name {
-        Some(name_str) => {
-            let num = name_str.parse::<i32>().unwrap();
-            let idx = list.iter().position(|x| x.get_number() == num).unwrap();
-            Some(list.remove(idx))
-        }
-        None => {
-            let idx = list.len() - 1;
-            if !list.is_empty() {
-                Some(list.remove(idx))
-            } else {
-                None
-            }
-        }
+    let idx = list.iter().position(|s| s.get_number() == num && s.get_year() == year);
+
+    match idx {
+        Some(i) => Some(list.remove(i)),
+        None => None
     }
 }
