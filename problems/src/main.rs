@@ -3,20 +3,25 @@ mod solvers;
 
 fn main() {
     let solver = match get_solver_number_from_args() {
-        Some((num, year)) => solvers::find_solver_matching(num, year),
+        Some((num, year)) => {
+            match solvers::find_solver_matching(num, year) {
+                Some(s) => Ok(s),
+                None => Err(format!("No solver found for y{}/p{:02}.rs", year % 100, num))
+            }
+        }
         None => {
             let mut solvers = solvers::all_solvers();
             if solvers.is_empty() {
-                None
+                Err("No default solver found".to_owned())
             } else {
                 let idx = solvers.len() - 1;
-                Some(solvers.remove(idx))
+                Ok(solvers.remove(idx))
             }
         }
     };
 
     match solver {
-        Some(s) => {
+        Ok(s) => {
             let input_paths = vec![get_solver_input_path(s.as_ref(), true), get_solver_input_path(s.as_ref(), false)];
             for path in input_paths {
                 let lines = get_lines(&path);
@@ -28,7 +33,7 @@ fn main() {
                 }
             }
         }
-        None => println!("No solution ")
+        Err(msg) => println!("{}", msg)
     }
 }
 
