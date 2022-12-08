@@ -8,19 +8,15 @@ impl Solution for Solver {
 
 	fn solve(self: &Self, lines: Vec<String>) -> Option<String> {
 		let mut solution = "".to_owned();
-		let mut answer = "".to_owned();
+		let mut answer;
 		let files = collect_files(&lines);
 		let dirs = collect_dirs(&files);
 		answer = format!("{}", dirs.iter().map(|(_,v)| v).filter(|&v| *v <= 100000).sum::<u64>());
 		solution.push_str(format!("Part I: {}\n", answer).as_str());
 
-		let root = dirs.iter().filter(|(k, v)| k.is_empty() ).map(|(k, v)| v).next().unwrap();
+		let root = dirs.iter().filter(|(k, _)| k.is_empty() ).map(|(_, v)| v).next().unwrap();
 		let max = 70000000;
 		let needed = 30000000;
-		for (k, v) in dirs.iter() {
-			//println!("\"{}\" => {}", k, v);
-		}
-		//println!("{} to delete {}", to_delete, root);
 		let m = dirs.iter().map(|(_, v)| v).filter(|&v| root - *v <= max - needed).min().unwrap();
 		answer = format!("{}", m);
 		solution.push_str(format!("Part II: {}\n", answer).as_str());

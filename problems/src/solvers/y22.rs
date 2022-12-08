@@ -5,6 +5,7 @@ mod p04;
 mod p05;
 mod p06;
 mod p07;
+mod p08;
 
 pub fn get_solvers() -> Vec<Box<dyn utils::Solution>> {
 	vec![
@@ -15,5 +16,6 @@ pub fn get_solvers() -> Vec<Box<dyn utils::Solution>> {
 		Box::new(p05::Solver),
 		Box::new(p06::Solver),
 		Box::new(p07::Solver),
+		Box::new(p08::Solver),
 	]
 }
