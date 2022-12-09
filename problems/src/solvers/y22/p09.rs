@@ -69,6 +69,7 @@ impl Solution for Solver {
 	}
 }
 
+#[allow(dead_code)]
 fn print_state(head: (i32, i32), tail: (i32, i32), visited: &HashSet<(i32, i32)>) {
 	let width = 5;
 	let height = 5;
@@ -92,6 +93,7 @@ fn print_state(head: (i32, i32), tail: (i32, i32), visited: &HashSet<(i32, i32)>
 	print!("\n");
 }
 
+#[allow(dead_code)]
 fn print_vec_state(rope: &Vec<(i32, i32)>, visited: &HashSet<(i32, i32)>) {
 	let width = 30;
 	let height = 30;
