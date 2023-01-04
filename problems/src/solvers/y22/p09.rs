@@ -4,9 +4,9 @@ use std::{collections::HashSet};
 pub struct Solver;
 
 impl Solution for Solver {
-    fn get_number(self: &Self) -> i32 { 9 }
+    fn get_number(&self) -> i32 { 9 }
 
-	fn solve(self: &Self, lines: Vec<String>) -> Option<String> {
+	fn solve(&self, lines: Vec<String>) -> Option<String> {
 		let mut solution = "".to_owned();
 		let mut answer;
 		{ // Do Part I
@@ -88,9 +88,9 @@ fn print_state(head: (i32, i32), tail: (i32, i32), visited: &HashSet<(i32, i32)>
 				print!(".");
 			}
 		}
-		print!("\n");
+		println!();
 	}
-	print!("\n");
+	println!();
 }
 
 #[allow(dead_code)]
@@ -121,9 +121,9 @@ fn print_vec_state(rope: &Vec<(i32, i32)>, visited: &HashSet<(i32, i32)>) {
 				}
 			}
 		}
-		print!("\n");
+		println!();
 	}
-	print!("\n");
+	println!();
 }
 
 fn process(head: (i32, i32), tail: (i32, i32), instr: (i32, i32)) -> ((i32, i32), (i32, i32)) {
@@ -144,7 +144,7 @@ fn process(head: (i32, i32), tail: (i32, i32), instr: (i32, i32)) -> ((i32, i32)
 	}
 }
 
-fn parse_instruction(line: &String) -> ((i32, i32), usize) {
+fn parse_instruction(line: &str) -> ((i32, i32), usize) {
 	let mut iter = line.split_whitespace();
 	let dir = match iter.next().unwrap() {
 		"R" => (1, 0),

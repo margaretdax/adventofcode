@@ -48,12 +48,7 @@ fn get_solver_number_from_args() -> Option<(i32, i32)> {
         None => None
     };
 
-    match num_arg {
-        Some(num_str) => {
-            Some((num_str.parse::<i32>().unwrap(), year.unwrap_or(2022)))
-        }
-        None => None
-    }
+    num_arg.map(|num_str| (num_str.parse::<i32>().unwrap(), year.unwrap_or(2022)))
 }
 
 fn get_solver_input_path(solver: &dyn Solution, is_test: bool) -> String {

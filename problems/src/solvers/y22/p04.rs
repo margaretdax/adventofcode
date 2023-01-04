@@ -5,6 +5,7 @@ pub struct Solver;
 impl Solution for Solver {
     fn get_number(self: &Self) -> i32 { 4 }
 
+	#[allow(clippy::if_same_then_else)]
 	fn solve(self: &Self, lines: Vec<String>) -> Option<String> {
 		let mut solution = "".to_owned();
 		let mut pairs = 0;
@@ -38,7 +39,7 @@ impl Solution for Solver {
 	}
 }
 
-fn parse_pairs(line: &String) -> (i32, i32, i32, i32) {
+fn parse_pairs(line: &str) -> (i32, i32, i32, i32) {
 	let pair : Vec<&str> = line.split(',').collect();
 	let left = pair[0];
 	let right = pair[1];
